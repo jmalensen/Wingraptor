@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://ct65jdoso4vru"]
+[gd_scene load_steps=8 format=3 uid="uid://ct65jdoso4vru"]
 
 [ext_resource type="Texture2D" uid="uid://bxv2q20y7jkj8" path="res://assets/sprites/Background/background_static.png" id="1_0iwbe"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_7w86i"]
 [ext_resource type="PackedScene" uid="uid://cpoct2dkn2mus" path="res://scenes/platform.tscn" id="2_ncm5c"]
 [ext_resource type="PackedScene" uid="uid://b7gmta5jghuak" path="res://scenes/player.tscn" id="3_imc7s"]
+[ext_resource type="Script" path="res://scripts/PlayArea.gd" id="3_vl1jw"]
+[ext_resource type="AudioStream" uid="uid://drw4t4xvx5qlj" path="res://assets/sounds/collect.wav" id="6_p6p4j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7rtxc"]
+size = Vector2(1800, 1200)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_7w86i")
@@ -18,6 +23,13 @@ texture = ExtResource("1_0iwbe")
 
 [node name="Static" type="Node2D" parent="Environment"]
 
+[node name="PlayArea" type="Area2D" parent="Environment/Static"]
+collision_mask = 4
+script = ExtResource("3_vl1jw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Static/PlayArea"]
+shape = SubResource("RectangleShape2D_7rtxc")
+
 [node name="Moving" type="Node2D" parent="Environment"]
 
 [node name="Platform" parent="Environment/Moving" instance=ExtResource("2_ncm5c")]
@@ -25,3 +37,36 @@ texture = ExtResource("1_0iwbe")
 [node name="Player" parent="." instance=ExtResource("3_imc7s")]
 position = Vector2(-150, -150)
 scale = Vector2(0.4, 0.4)
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="CollectSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("6_p6p4j")
+volume_db = -8.771
+
+[node name="HUD" type="CanvasLayer" parent="."]
+layer = 99
+
+[node name="UI" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Score" type="Label" parent="HUD/UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -175.0
+offset_top = 10.0
+offset_right = -87.0
+offset_bottom = 36.0
+grow_horizontal = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 30
+text = "Score: 1000"
+horizontal_alignment = 2

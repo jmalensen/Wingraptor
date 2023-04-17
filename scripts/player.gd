@@ -48,6 +48,7 @@ func _physics_process(delta: float) -> void:
 			sprite.play("float")
 			velocity.y += (gravity * delta) * 0.5
 		else:
+			sprite.play("run")
 			velocity.y += gravity * delta
 		
 	move_and_slide()

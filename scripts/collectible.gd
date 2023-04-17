@@ -1,0 +1,23 @@
+extends Area2D
+
+@export var value = 10
+
+@onready var game = $"/root/World"
+@onready var sprite = $AnimatedSprite2D
+
+#Called when the node enters the scene tree for the first time
+func _ready() -> void:
+	self.body_entered.connect(_on_body_entered)
+	
+func _on_body_entered(body) -> void:
+	if body.is_in_group("player"):
+		game.add_score(value)
+		sprite.play("collected")
+		sprite.animation_finished.connect(_on_animation_finished)
+	
+func _on_animation_finished() -> void:
+	queue_free()
+	
+#Called every frame. delta is the elapsed time since the prev
+func _process(delta: float) -> void:
+	pass
