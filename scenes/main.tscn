@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ct65jdoso4vru"]
+[gd_scene load_steps=9 format=3 uid="uid://ct65jdoso4vru"]
 
 [ext_resource type="Texture2D" uid="uid://bxv2q20y7jkj8" path="res://assets/sprites/Background/background_static.png" id="1_0iwbe"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_7w86i"]
@@ -9,6 +9,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7rtxc"]
 size = Vector2(1800, 1200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nmwmr"]
+size = Vector2(3000, 20)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_7w86i")
@@ -30,13 +33,20 @@ script = ExtResource("3_vl1jw")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Static/PlayArea"]
 shape = SubResource("RectangleShape2D_7rtxc")
 
+[node name="Ground" type="Area2D" parent="Environment/Static"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Static/Ground"]
+position = Vector2(0, 1121)
+shape = SubResource("RectangleShape2D_nmwmr")
+
 [node name="Moving" type="Node2D" parent="Environment"]
 
 [node name="Platform" parent="Environment/Moving" instance=ExtResource("2_ncm5c")]
 
 [node name="Player" parent="." instance=ExtResource("3_imc7s")]
 position = Vector2(-150, -150)
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.3, 0.3)
 
 [node name="Sounds" type="Node2D" parent="."]
 
@@ -70,3 +80,79 @@ theme_override_constants/outline_size = 7
 theme_override_font_sizes/font_size = 30
 text = "Score: 1000"
 horizontal_alignment = 2
+
+[node name="Ammo" type="Label" parent="HUD/UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -216.0
+offset_top = 51.0
+offset_right = -87.0
+offset_bottom = 96.0
+grow_horizontal = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 30
+text = "Ammo: 0"
+horizontal_alignment = 2
+
+[node name="BlackBg" type="ColorRect" parent="HUD/UI"]
+visible = false
+layout_mode = 0
+offset_right = 1929.0
+offset_bottom = 1094.0
+color = Color(0, 0, 0, 0.647059)
+
+[node name="GameOver" type="Label" parent="HUD/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -39.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 40
+text = "GAME OVER !!
+You scored %s points!
+Press \"jump\" to restart."
+horizontal_alignment = 1
+
+[node name="ExitButton" type="Button" parent="HUD/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -155.0
+offset_top = -96.0
+offset_right = 155.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "Exit game"
+
+[node name="Pause" type="Label" parent="HUD/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.5
+offset_top = -13.0
+offset_right = 23.5
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Pause"
+horizontal_alignment = 1
