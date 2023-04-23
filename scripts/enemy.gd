@@ -6,15 +6,22 @@ extends CharacterBody2D
 @onready var hitbox = $Hitbox
 @onready var player = $"/root/World/Player"
 @onready var death_sound = $DeathSound
+@onready var game = $"/root/World/"
 
 var active = false
 var gravity = 1600
+var visible_on_screen = false
+var effects_sound_enabled = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hitbox.body_entered.connect(_on_body_entered)
 	player.player_died.connect(_on_player_died)
 
+	game.pause.connect(_on_pause)
+	game.resume.connect(_on_resume)
+	
+	game.change_effects_sound.connect(_on_change_effects_sounds)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -27,6 +34,7 @@ func _process(delta: float) -> void:
 
 func set_active(value: bool) -> void:
 	active = value
+	visible_on_screen = true
 	if active:
 		sprite.play("walk")
 
@@ -39,10 +47,21 @@ func _on_player_died() -> void:
 	sprite.play("idle")
 
 func die() -> void:
-	death_sound.play()
+	if effects_sound_enabled:
+		death_sound.play()
 	sprite.play("death")
 	active = false
 	sprite.animation_finished.connect(_on_animation_finished)
 
 func _on_animation_finished() -> void:
 	queue_free()
+
+func _on_pause() -> void:
+	active = false
+
+func _on_resume() -> void:
+	if visible_on_screen:
+		active = true
+
+func _on_change_effects_sounds(value) -> void:
+	effects_sound_enabled = value

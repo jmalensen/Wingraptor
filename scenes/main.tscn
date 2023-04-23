@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://drw4t4xvx5qlj" path="res://assets/sounds/collect.wav" id="6_p6p4j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7rtxc"]
-size = Vector2(1800, 1200)
+size = Vector2(1800, 1600)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nmwmr"]
 size = Vector2(3000, 20)
@@ -31,13 +31,14 @@ collision_mask = 4
 script = ExtResource("3_vl1jw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Static/PlayArea"]
+position = Vector2(0, 300)
 shape = SubResource("RectangleShape2D_7rtxc")
 
 [node name="Ground" type="Area2D" parent="Environment/Static"]
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Static/Ground"]
-position = Vector2(0, 1121)
+position = Vector2(0, 1435)
 shape = SubResource("RectangleShape2D_nmwmr")
 
 [node name="Moving" type="Node2D" parent="Environment"]
@@ -52,7 +53,7 @@ scale = Vector2(0.3, 0.3)
 
 [node name="CollectSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("6_p6p4j")
-volume_db = -8.771
+volume_db = -16.0
 
 [node name="HUD" type="CanvasLayer" parent="."]
 layer = 99
@@ -132,8 +133,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -155.0
-offset_top = -96.0
+offset_top = -285.0
 offset_right = 155.0
+offset_bottom = -189.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 64
@@ -153,6 +155,50 @@ offset_right = 23.5
 offset_bottom = 13.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
 theme_override_font_sizes/font_size = 64
 text = "Pause"
 horizontal_alignment = 1
+
+[node name="MusicCheck" type="CheckButton" parent="HUD/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -229.5
+offset_top = 76.5
+offset_right = 10.5
+offset_bottom = 129.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 24
+button_pressed = true
+text = "Music active"
+
+[node name="EffectsCheck" type="CheckButton" parent="HUD/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -229.5
+offset_top = 170.0
+offset_right = 10.5
+offset_bottom = 223.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 24
+button_pressed = true
+text = "Effects active"

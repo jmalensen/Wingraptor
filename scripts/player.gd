@@ -20,10 +20,16 @@ var jump_remaining = 2
 var was_jumping = false
 var jump_pitch = 1.0
 var ammo = 3
+var effects_sound_enabled = true
 
 func _ready() -> void:
 	#print("player start moving")
 	sprite.animation_finished.connect(_on_animation_finished)
+	
+	game.pause.connect(_on_pause)
+	game.resume.connect(_on_resume)
+	
+	game.change_effects_sound.connect(_on_change_effects_sounds)
 
 func _physics_process(delta: float) -> void:
 	
@@ -50,7 +56,9 @@ func _physics_process(delta: float) -> void:
 				sprite.play("double jump")
 				
 			jump_sound.set_pitch_scale(jump_pitch)
-			jump_sound.play()
+			
+			if effects_sound_enabled:
+				jump_sound.play()
 			jump_pitch += 0.2
 		
 		#Handle floating
@@ -60,21 +68,25 @@ func _physics_process(delta: float) -> void:
 		else:
 			sprite.play("run")
 			velocity.y += gravity * delta
-		
-	move_and_slide()
+	
+		move_and_slide()
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("fire") and ammo > 0 and active == true:
 		var projectile_instance = projectile.instantiate()
 		projectile_instance.position = projectile_position.global_position
 		game.add_child(projectile_instance)
-		shoot_sound.play()
+		
+		if effects_sound_enabled:
+			shoot_sound.play()
 		sprite.play("shoot")
 		ammo -= 1
 	
 func die() -> void:
-	death_sound.play()
+	if effects_sound_enabled:
+		death_sound.play()
 	sprite.play("death")
+	sprite.animation_finished.connect(_on_deathanimation_finished)
 	active = false
 	collision_shape.set_deferred("disabled", true)
 	emit_signal("player_died")
@@ -82,6 +94,18 @@ func die() -> void:
 func _on_animation_finished() -> void:
 	if sprite.animation == "shoot":
 		sprite.play("run")
+		
+func _on_deathanimation_finished() -> void:
+	sprite.set_visible(false)
 
 func add_ammo(amount: int) -> void:
 	ammo += amount
+
+func _on_pause() -> void:
+	active = false
+	
+func _on_resume() -> void:
+	active = true
+
+func _on_change_effects_sounds(value) -> void:
+	effects_sound_enabled = value

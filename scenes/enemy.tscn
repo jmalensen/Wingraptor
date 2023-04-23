@@ -219,4 +219,4 @@ shape = SubResource("RectangleShape2D_e5fun")
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_qi5tn")
-volume_db = -6.892
+volume_db = -16.0

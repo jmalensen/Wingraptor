@@ -16,5 +16,5 @@ position = Vector2(0, -20)
 shape = SubResource("RectangleShape2D_cppbe")
 
 [node name="Enemy" parent="." instance=ExtResource("2_4aw3e")]
-position = Vector2(166, -76)
+position = Vector2(166, -77)
 scale = Vector2(0.3, 0.3)
