@@ -42,11 +42,12 @@ position = Vector2(0, 1435)
 shape = SubResource("RectangleShape2D_nmwmr")
 
 [node name="Moving" type="Node2D" parent="Environment"]
+position = Vector2(-197, 0)
 
 [node name="Platform" parent="Environment/Moving" instance=ExtResource("2_ncm5c")]
 
 [node name="Player" parent="." instance=ExtResource("3_imc7s")]
-position = Vector2(-150, -150)
+position = Vector2(-318, -65)
 scale = Vector2(0.3, 0.3)
 
 [node name="Sounds" type="Node2D" parent="."]

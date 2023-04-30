@@ -90,6 +90,7 @@ func die() -> void:
 	active = false
 	collision_shape.set_deferred("disabled", true)
 	emit_signal("player_died")
+	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 
 func _on_animation_finished() -> void:
 	if sprite.animation == "shoot":

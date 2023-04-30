@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var movement_speed = 50
 
 @onready var sprite = $AnimatedSprite2D
+@onready var collisionshape = $CollisionShape2D
 @onready var hitbox = $Hitbox
 @onready var player = $"/root/World/Player"
 @onready var death_sound = $DeathSound
@@ -39,6 +40,38 @@ func set_active(value: bool) -> void:
 		sprite.play("walk")
 
 func _on_body_entered(body) -> void:
+	
+#	var hitbox = player.get_node("CollisionShape2D") # replace with the path to your hitbox node
+#	var pos = hitbox.global_position
+#	var scale = hitbox.global_scale
+#	print(collisionshape.shape.get_rect())
+
+	
+	# Get the position of the player and the enemy
+	var player_pos = player.global_position
+	var enemy_pos = sprite.global_position
+
+	# Kill from jump on it (+6.0 is for the hitbox of the player to be correctly placed)
+	if (player_pos.y+6.0) < enemy_pos.y:
+		
+		#FIND precise coordinate of hitbox !!
+		# Calculate the offset of the player from the top of the enemy
+#		var offset = (player_pos.y+6.0) - enemy_pos.y
+#
+#		# Calculate the top position of the player
+#		var top_pos = player_pos - Vector2(0, offset)
+#		print(top_pos, "==", offset)
+
+		# Check if the player collides with the enemy when moved to the top position
+		#var test_result = player.collision_shape_2d.test_move(top_pos - player_pos)
+
+#		if test_result.collider != null:
+#			# The entity collides with the platform from the top
+#			print("Entity collided with platform from the top!")
+		
+		die()
+		return
+		
 	if body.is_in_group("player") and active:
 		player.die()
 

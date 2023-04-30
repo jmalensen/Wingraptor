@@ -55,6 +55,7 @@ func _process(delta: float) -> void:
 		#Reload the game if we are not player and the user hit space
 		if Input.is_action_just_pressed("jump"):
 			get_tree().reload_current_scene()
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		return
 		
 	#Handling pause/resume menu
@@ -67,8 +68,12 @@ func _process(delta: float) -> void:
 
 	if pause_status and player.active:
 		emit_signal("pause")
+		# Show mouse
+		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	elif not pause_status and not player.active:
 		emit_signal("resume")
+		# Hide mouse
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		
 	#Reset the collectible sound pitch after a time
 	if Time.get_ticks_msec() > reset_collectible_pitch_time:
@@ -98,8 +103,8 @@ func _spawn_next_platform() -> void:
 	if last_platform_position == Vector2.ZERO:
 		new_platform.position = Vector2(400, 0)
 	else:
-		var x = last_platform_position.x + rng.randi_range(550, 760)
-		var y = clamp(last_platform_position.y + rng.randi_range(-200, 180), 200, 1000)
+		var x = last_platform_position.x + rng.randi_range(450, 660)
+		var y = clamp(last_platform_position.y + rng.randi_range(-200, 150), 200, 900)
 		new_platform.position = Vector2(x, y)
 		
 	#Add the platform to the moving environment

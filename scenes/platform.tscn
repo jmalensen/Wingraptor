@@ -6,6 +6,7 @@
 size = Vector2(380, 40)
 
 [node name="Platform" type="StaticBody2D"]
+scale = Vector2(0.8, 0.8)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_tdw8l")
