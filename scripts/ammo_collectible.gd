@@ -1,0 +1,25 @@
+extends Area2D
+
+@export var value = 3
+
+@onready var player = $"/root/World/Player"
+@onready var sprite = $AnimatedSprite2D
+@onready var pickup_sound = $PickupSound
+
+#Called when the node enters the scene tree for the first time
+func _ready() -> void:
+	self.body_entered.connect(_on_body_entered)
+	
+func _on_body_entered(body) -> void:
+	if body.is_in_group("player"):
+		player.add_ammo(value)
+		sprite.play("collected")
+		pickup_sound.play()
+		sprite.animation_finished.connect(_on_animation_finished)
+	
+func _on_animation_finished() -> void:
+	queue_free()
+	
+#Called every frame. delta is the elapsed time since the prev
+func _process(delta: float) -> void:
+	pass
