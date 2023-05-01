@@ -26,6 +26,7 @@ var platform_collectible_single = preload("res://scenes/platform_collectible_sin
 var platform_collectible_row = preload("res://scenes/platform_collectible_row.tscn")
 var platform_collectible_rainbow = preload("res://scenes/platform_collectible_rainbow.tscn")
 var platform_enemy = preload("res://scenes/platform_enemy.tscn")
+var platform_plant = preload("res://scenes/platform_plant.tscn")
 var platform_collectible_ammo = preload("res://scenes/platform_collectible_ammo.tscn")
 
 @onready var music_node = get_node("/root/Music/AudioStreamPlayer")
@@ -46,6 +47,7 @@ func _ready() -> void:
 	ground.body_entered.connect(_on_ground_body_entered)
 	check_music_button.toggled.connect(_on_checkmusic_toggled)
 	check_effects_button.toggled.connect(_on_checkeffects_toggled)
+	exit_button.pressed.connect(_on_exit_button_pressed)
 	
 #Called every frame. Delta is the elapsed time since the previous
 func _process(delta: float) -> void:
@@ -68,10 +70,12 @@ func _process(delta: float) -> void:
 
 	if pause_status and player.active:
 		emit_signal("pause")
+		exit_button.set_visible(true)
 		# Show mouse
 		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	elif not pause_status and not player.active:
 		emit_signal("resume")
+		exit_button.set_visible(false)
 		# Hide mouse
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		
@@ -94,6 +98,7 @@ func _spawn_next_platform() -> void:
 		platform_collectible_row,
 		platform_collectible_rainbow,
 		platform_enemy,
+		platform_plant,
 		platform_collectible_ammo
 	]
 	var random_platform = available_platforms.pick_random()
@@ -139,7 +144,6 @@ func _on_player_died() -> void:
 	game_over_label.set_visible(true)
 	black_bg.set_visible(true)
 	exit_button.set_visible(true)
-	exit_button.pressed.connect(_on_exit_button_pressed)
 	
 func _on_ground_body_entered(body) -> void:
 	if body.is_in_group("player"):
