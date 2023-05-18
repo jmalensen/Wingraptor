@@ -3,6 +3,7 @@ extends CharacterBody2D
 class_name EntityEnemy
 
 @export var movement_speed = 50
+@export var value = 15
 
 @onready var sprite = $AnimatedSprite2D
 @onready var collisionshape = $CollisionShape2D
@@ -66,6 +67,7 @@ func die() -> void:
 	sprite.play("death")
 	active = false
 	sprite.animation_finished.connect(_on_animation_finished)
+	game.add_score(value)
 
 func _on_animation_finished() -> void:
 	queue_free()

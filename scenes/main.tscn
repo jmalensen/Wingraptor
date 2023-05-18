@@ -69,35 +69,35 @@ grow_vertical = 2
 
 [node name="Score" type="Label" parent="HUD/UI"]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -175.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -82.0
 offset_top = 10.0
-offset_right = -87.0
-offset_bottom = 36.0
-grow_horizontal = 0
+offset_right = 82.0
+offset_bottom = 55.0
+grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 40
 text = "Score: 1000"
-horizontal_alignment = 2
+horizontal_alignment = 1
 
 [node name="Ammo" type="Label" parent="HUD/UI"]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -216.0
-offset_top = 51.0
-offset_right = -87.0
-offset_bottom = 96.0
-grow_horizontal = 0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -85.0
+offset_top = 60.0
+offset_right = 85.0
+offset_bottom = 118.0
+grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 40
 text = "Ammo: 0"
-horizontal_alignment = 2
+horizontal_alignment = 1
 
 [node name="BlackBg" type="ColorRect" parent="HUD/UI"]
 visible = false

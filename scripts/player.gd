@@ -13,13 +13,14 @@ signal player_died
 @onready var game = $"/root/World/"
 @onready var shoot_sound = $ShootSound
 @onready var projectile_position = $ProjectilePosition
+@onready var mag_sound = $EmptyMagSound
 
 var projectile = preload("res://scenes/projectile.tscn")
 var active = true
 var jump_remaining = 2
 var was_jumping = false
 var jump_pitch = 1.0
-var ammo = 3
+var ammo = 5
 var effects_sound_enabled = true
 
 func _ready() -> void:
@@ -36,6 +37,8 @@ func _physics_process(delta: float) -> void:
 	if active:
 		#Update the camera position
 		camera.position = position
+		#To put the player a bit more to the left so we can see more of what's coming
+		camera.position.x = position.x + 200
 		
 		#Reset player after landing
 		if was_jumping and is_on_floor():
@@ -72,6 +75,11 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 	
 func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("fire") and ammo == 0 and active == true:
+		if effects_sound_enabled:
+			mag_sound.play()
+		game.blink_ammo()
+		
 	if event.is_action_pressed("fire") and ammo > 0 and active == true:
 		var projectile_instance = projectile.instantiate()
 		projectile_instance.position = projectile_position.global_position

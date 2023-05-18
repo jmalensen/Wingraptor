@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://b7gmta5jghuak"]
+[gd_scene load_steps=57 format=3 uid="uid://b7gmta5jghuak"]
 
 [ext_resource type="Texture2D" uid="uid://0kgjt6hmwd2f" path="res://assets/sprites/Player/player_run.png" id="1_3g3ss"]
 [ext_resource type="Texture2D" uid="uid://7un5ecla5urt" path="res://assets/sprites/Player/player_death.png" id="1_8sabp"]
@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://plsrbm1q3rbq" path="res://assets/sounds/jump.wav" id="7_w0n5c"]
 [ext_resource type="AudioStream" uid="uid://2lc6vxpu48d5" path="res://assets/sounds/player_death.wav" id="9_6bqfo"]
 [ext_resource type="AudioStream" uid="uid://b0t1b21vaviys" path="res://assets/sounds/player_shoot.wav" id="10_0e5h7"]
+[ext_resource type="AudioStream" uid="uid://dtvsjl0iqdpmb" path="res://assets/sounds/Magazine_Empty_-_Sound.mp3" id="11_y42ew"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fsdh3"]
 atlas = ExtResource("1_8sabp")
@@ -375,3 +376,6 @@ volume_db = -16.0
 
 [node name="ProjectilePosition" type="Node2D" parent="."]
 position = Vector2(116, -28)
+
+[node name="EmptyMagSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_y42ew")

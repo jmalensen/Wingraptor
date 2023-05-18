@@ -171,3 +171,8 @@ func _on_checkeffects_toggled(p_state) -> void:
 		#Need a signal to shut down effects sound
 		change_effects_sound.emit(false)
 		pass
+
+func blink_ammo() -> void:
+	ammo_label.add_theme_font_size_override("font_size", 60)
+	await get_tree().create_timer(0.1).timeout
+	ammo_label.add_theme_font_size_override("font_size", 40)
